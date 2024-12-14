@@ -3,26 +3,23 @@ from aqt import mw
 from anki.hooks import addHook
 
 from . import utils
-
-##from . import api_call
-
-
-
+from . import api_call
 
 
 
 
 def add_example(editor):
     query = utils.get_note_query(editor.note)
+    suggestion = api_call.get_suggestion(query)
 
 
 
-def add_explanation():
-    pass
+# def add_explanation(editor):
+#     query = utils.get_note_query(editor.note)
 
 
-def custom_instruction():
-    pass
+# def custom_instruction(editor):
+#     query = utils.get_note_query(editor.note)
 
 
 def hook_image_buttons(buttons, editor):
