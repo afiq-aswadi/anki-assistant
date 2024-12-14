@@ -52,19 +52,21 @@ SPECIFIC_PROMPTS = {
 
     Field 1 should contain the question and {{c1:: answer}}
     Field 2 should contain the examples and relevant explanation.
+    Remember to output only the new flashcard without any additional text or explanations about the changes made.
     """,
     
     'explanation': """
     Generate a clear explanation of the question.
     Field 1 should contain the question and {{c1:: answer}}
     Field 2 should contain the relevant explanation.
-
+    Remember to output only the new flashcard without any additional text or explanations about the changes made.
     """,
     
     'instruction': """
     You will be given custom instructions for this card. Follow them carefully.
     Field 1 should contain the question and {{c1:: answer}}
     Field 2 should contain the relevant explanation.
+    Remember to output only the new flashcard without any additional text or explanations about the changes made.
     """,
     
     'related': """
@@ -73,6 +75,9 @@ SPECIFIC_PROMPTS = {
     - Build upon the current concept
     - Cover a related but different aspect
     - Be at a similar difficulty level
+    Field 1 should contain the question and {{c1:: answer}}
+    Field 2 should contain the relevant explanation.
+    Remember to output only the new flashcard without any additional text or explanations about the changes made.
     """
 }
 
