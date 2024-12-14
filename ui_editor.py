@@ -5,21 +5,25 @@ from anki.hooks import addHook
 from . import utils
 from . import api_call
 
-
-
+import sys
 
 def add_example(editor):
-    query = utils.get_note_query(editor.note)
-    suggestion = api_call.get_suggestion(query)
+    #query = utils.get_note_query(editor.note) ##need to set up config for this to work
+    str = "test"
+    if "anthropic" in sys.modules:
+        str = "anthropic is imported."
+    else:
+        str = "anthropic is not imported."
+    editor.note.fields[1] = str
+    editor.loadNote()
+    #editor.tabs.addTab()
+
+def add_explanation(editor):
+    pass
 
 
-
-# def add_explanation(editor):
-#     query = utils.get_note_query(editor.note)
-
-
-# def custom_instruction(editor):
-#     query = utils.get_note_query(editor.note)
+def custom_instruction(editor):
+    pass
 
 
 def hook_image_buttons(buttons, editor):
