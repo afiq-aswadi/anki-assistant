@@ -1,3 +1,11 @@
+import sys
+import os
+
+addon_dir = os.path.dirname(__file__)
+libs_dir = os.path.join(addon_dir, "libs")
+if libs_dir not in sys.path:
+    sys.path.insert(0, libs_dir)
+
 import anthropic
 
 def get_suggestions_from_claude(prompt: str, current_text1: str, current_text2: str) -> tuple[str, str]:
