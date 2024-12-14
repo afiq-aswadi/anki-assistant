@@ -3,7 +3,7 @@ from typing import Optional
 
 from . import api_call
 
-from prompts import BASE_PROMPT
+from .prompts import BASE_PROMPT
 
 
 class TextInputDialog(QDialog):
@@ -80,7 +80,7 @@ class ExampleDialog(QDialog):
             
             # Get new suggestions from Claude
             new_text1, new_text2 = api_call.get_suggestions_from_claude(
-                {BASE_PROMPT}
+                {BASE_PROMPT},
                 user_input, 
                 self.text1, 
                 self.text2

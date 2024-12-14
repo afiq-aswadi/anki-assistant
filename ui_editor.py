@@ -9,8 +9,6 @@ from .tab_interface import ExampleDialog, CustomInstructionDialog
 
 import sys
 
-from prompts import BASE_PROMPT, SPECIFIC_PROMPTS
-
 
 def add_example(editor):
     # Get initial suggestions from Claude
