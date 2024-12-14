@@ -9,31 +9,64 @@ from .tab_interface import ExampleDialog
 
 import sys
 
+from prompts import BASE_PROMPT, SPECIFIC_PROMPTS
+
 
 def add_example(editor):
     # Get initial suggestions from Claude
     example_text1, example_text2 = api_call.get_suggestions_from_claude(
-        "Initial suggestions", 
+        SPECIFIC_PROMPTS['example']
         editor.note.fields[0], 
         editor.note.fields[1]
     )
-    
+
     # Create and show dialog
     dialog = ExampleDialog(parent=editor.parentWindow, 
-                         text1=example_text1,
-                         text2=example_text2,
-                         editor=editor)
+                            text1=example_text1,
+                            text2=example_text2,
+                            editor=editor)
     if dialog.exec():
         editor.note.fields[0] = dialog.text1
         editor.note.fields[1] = dialog.text2
         editor.loadNote()
 
 def add_explanation(editor):
-    pass
+    example_text1, example_text2 = api_call.get_suggestions_from_claude(
+    SPECIFIC_PROMPTS['explanation'],
+    editor.note.fields[0], 
+    editor.note.fields[1]
+)
+    dialog = ExampleDialog(parent=editor.parentWindow, 
+                            text1=example_text1,
+                            text2=example_text2,
+                            editor=editor)
+    if dialog.exec():
+        editor.note.fields[0] = dialog.text1
+        editor.note.fields[1] = dialog.text2
+        editor.loadNote()
 
 
 def custom_instruction(editor):
-    pass
+    # Show custom instruction dialog
+    instruction_dialog = CustomInstructionDialog(editor.parentWindow)
+    if instruction_dialog.exec():
+        # Get suggestions using custom prompt
+        example_text1, example_text2 = api_call.get_suggestions_from_claude(
+            instruction_dialog.prompt,
+            editor.note.fields[0], 
+            editor.note.fields[1]
+        )
+        
+        # Show results in example dialog
+        dialog = ExampleDialog(parent=editor.parentWindow, 
+                             text1=example_text1,
+                             text2=example_text2,
+                             editor=editor)
+        if dialog.exec():
+            editor.note.fields[0] = dialog.text1
+            editor.note.fields[1] = dialog.text2
+            editor.loadNote()
+    
 
 
 def hook_image_buttons(buttons, editor):

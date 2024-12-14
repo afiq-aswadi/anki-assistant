@@ -88,6 +88,32 @@ class ExampleDialog(QDialog):
             self.text2 = new_text2
             self.text_display1.setPlainText(self.text1)
             self.text_display2.setPlainText(self.text2)
-    
+
+class CustomInstructionDialog(QDialog):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setup_ui()
+        self.prompt = ""
+        
+    def setup_ui(self):
+        self.setWindowTitle("Custom Instruction")
+        layout = QVBoxLayout()
+        
+        # Instruction field
+        self.instruction_input = QTextEdit()
+        self.instruction_input.setPlaceholderText("Enter your instructions for improving the flashcard...")
+        layout.addWidget(self.instruction_input)
+        
+        # Submit button
+        submit_btn = QPushButton("Submit")
+        submit_btn.clicked.connect(self.on_submit)
+        layout.addWidget(submit_btn)
+        
+        self.setLayout(layout)
+        
+    def on_submit(self):
+        self.prompt = self.instruction_input.toPlainText()
+        self.accept()
+
 
 
