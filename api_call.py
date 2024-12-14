@@ -8,31 +8,29 @@ if libs_dir not in sys.path:
 
 import anthropic
 
-from .prompts import get_full_prompt
+from .prompts import get_system_prompt, get_user_prompt
 
-def get_suggestions_from_claude(prompt_type: str, prompt:str,  current_text1: str, current_text2: str) -> tuple[str, str]:
+def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
         client = anthropic.Anthropic(api_key="REDACTED_API_KEY")
-        
-        system_prompt = f"""
-        {get_full_prompt(prompt_type)}
-        
-        User instructions: "Also" + {prompt} + ". The card is the following:"
 
-        Current content:
-        Base Question and answer: {current_text1}
-        Explanation : {current_text2}
-        
-        Return the suggested question and the answer as one field. With the answer wrapped around {{c1::clozed deletions}}. Afterwards, write a brief explanation of the card. Separate the question and the explanation using a ||| (triple pipe).
-        Format: Question, {{c1:: answer }} ||| explanation
-        """
         
         message = client.messages.create(
-            model="claude-3-sonnet-20240229",
+            model="claude-3-5-sonnet-latest",
             max_tokens=1000,
             temperature=0.7,
-            system=system_prompt,
-            messages=[{"role": "user", "content": "Please provide improved suggestions."}]
+            system=get_system_prompt(),
+            messages=[{"role": "user",
+                        "content": f"""
+                {get_user_prompt(prompt_type, custom_prompt)}
+                
+                Current flashcard:
+                Question/Answer: {current_text1}
+                Explanation: {current_text2}
+                
+                Please improve this flashcard following the format requirements.
+                """
+            }]
         )
         
         # Extract content from message response

@@ -20,9 +20,6 @@ Follow these guidelines:
 - The format should be as follows:
     Question, {{c1:: answer }} ||| explanation
 - The explanation should be clear and concise, explaining the answer in a way that is easy to understand.
-
-The following are your instructions:
-
 """
 
 
@@ -50,5 +47,11 @@ SPECIFIC_PROMPTS = {
     """
 }
 
-def get_full_prompt(prompt_type: str) -> str:
-    return f"{BASE_PROMPT}\n{SPECIFIC_PROMPTS[prompt_type]}"
+def get_system_prompt() -> str:
+    return BASE_PROMPT
+
+def get_user_prompt(prompt_type: str, custom_prompt: str = "") -> str:
+    specific = SPECIFIC_PROMPTS.get(prompt_type, "")
+    if custom_prompt:
+        return f"{specific}\nAdditional instructions: {custom_prompt}"
+    return specific
