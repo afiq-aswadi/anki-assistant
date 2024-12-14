@@ -11,13 +11,6 @@ import re
 
 def format_for_anki(text: str) -> str:
     """Format text for Anki with proper HTML"""
-    # Convert code blocks
-    text = re.sub(
-        r'```(\w+)?\n(.*?)\n```',
-        lambda m: f'<pre><code>{m.group(2)}</code></pre>',
-        text,
-        flags=re.DOTALL
-    )
     
     # Preserve line breaks and indentation
     text = text.replace('\n', '<br>')
