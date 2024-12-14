@@ -15,16 +15,16 @@ def get_suggestions_from_claude(prompt_type: str, prompt:str,  current_text1: st
         client = anthropic.Anthropic(api_key="REDACTED_API_KEY")
         
         system_prompt = f"""
-       {get_full_prompt(prompt_type)}
-       
+        {get_full_prompt(prompt_type)}
+        
+        User instructions: "Also" + {prompt} + ". The card is the following:"
+
         Current content:
-        Field 1: {current_text1}
-        Field 2: {current_text2}
+        Base Question and answer: {current_text1}
+        Explanation : {current_text2}
         
-        User instructions: {prompt}
-        
-        Return exactly two suggestions, separated by ||| (triple pipe).
-        Format: suggestion1|||suggestion2
+        Return the suggested question and the answer as one field. With the answer wrapped around {{c1::clozed deletions}}. Afterwards, write a brief explanation of the card. Separate the question and the explanation using a ||| (triple pipe).
+        Format: Question, {{c1:: answer }} ||| explanation
         """
         
         message = client.messages.create(
