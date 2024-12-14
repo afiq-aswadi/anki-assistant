@@ -10,7 +10,7 @@ import anthropic
 
 def get_suggestions_from_claude(prompt: str, current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
-        client = anthropic.Anthropic(api_key="YOUR_ANTHROPIC_API_KEY")
+        client = anthropic.Anthropic(api_key="REDACTED_API_KEY")
         
         system_prompt = f"""
         You are helping improve Anki flashcards.
@@ -32,8 +32,10 @@ def get_suggestions_from_claude(prompt: str, current_text1: str, current_text2: 
             messages=[{"role": "user", "content": "Please provide improved suggestions."}]
         )
         
-        # Split response into two fields
-        suggestions = message.content.split("|||")
+        # Extract content from message response
+        content = message.content[0].text
+        suggestions = content.split("|||")
+        
         if len(suggestions) == 2:
             return suggestions[0].strip(), suggestions[1].strip()
         else:
