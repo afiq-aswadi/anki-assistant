@@ -1,68 +1,35 @@
-## define api call here
-from aqt import mw
-from aqt.utils import showInfo, showWarning
-import json
-import requests
+import anthropic
 
-API_KEY = "YOUR_OPENAI_API_KEY"
-
-def improve_card(editor):
-    note = editor.note
-    front_field = "Front"
-    back_field = "Back"
-
-    front_text = note[front_field]
-    back_text = note[back_field]
-
-    if not front_text and not back_text:
-        showWarning("No content in the note fields.")
-        return
-
-    prompt = f"""
-    You are an assistant that improves Anki cards. 
-    The card has a Front and a Back.
-    Front: "{front_text}"
-    Back: "{back_text}"
-
-    Return a JSON with "front" and "back" keys containing improved text versions.
-    Example:
-    {{
-      "front": "Improved front text",
-      "back": "Improved back text"
-    }}
-    """
-
-    api_url = "https://api.openai.com/v1/chat/completions"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {API_KEY}"
-    }
-    data = {
-        "model": "gpt-4",  # or gpt-3.5-turbo, etc.
-        "messages": [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt.strip()}
-        ],
-        "max_tokens": 300,
-        "temperature": 0.7
-    }
-
+def get_suggestions_from_claude(prompt: str, current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
-        response = requests.post(api_url, headers=headers, json=data)
-        if response.status_code == 200:
-            result = response.json()
-            improved_content = result["choices"][0]["message"]["content"].strip()
-            try:
-                improved = json.loads(improved_content)
-                note[front_field] = improved.get("front", front_text)
-                note[back_field] = improved.get("back", back_text)
-                editor.loadNote()
-                showInfo("Card improved successfully!")
-            except json.JSONDecodeError:
-                note[back_field] = improved_content
-                editor.loadNote()
-                showWarning("The AI did not return valid JSON. The response was placed in the Back field.")
+        client = anthropic.Anthropic(api_key="YOUR_ANTHROPIC_API_KEY")
+        
+        system_prompt = f"""
+        You are helping improve Anki flashcards.
+        Current content:
+        Field 1: {current_text1}
+        Field 2: {current_text2}
+        
+        User instructions: {prompt}
+        
+        Return exactly two suggestions, separated by ||| (triple pipe).
+        Format: suggestion1|||suggestion2
+        """
+        
+        message = client.messages.create(
+            model="claude-3-sonnet-20240229",
+            max_tokens=1000,
+            temperature=0.7,
+            system=system_prompt,
+            messages=[{"role": "user", "content": "Please provide improved suggestions."}]
+        )
+        
+        # Split response into two fields
+        suggestions = message.content.split("|||")
+        if len(suggestions) == 2:
+            return suggestions[0].strip(), suggestions[1].strip()
         else:
-            showWarning(f"OpenAI API error: {response.status_code}\n{response.text}")
+            return "API Error: Invalid format", "Please try again"
+            
     except Exception as e:
-        showWarning(f"An error occurred: {str(e)}")
+        return f"API Error: {str(e)}", "Please try again"
