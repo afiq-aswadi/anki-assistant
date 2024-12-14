@@ -10,58 +10,20 @@ from .tab_interface import ExampleDialog
 import sys
 
 
-# def add_example(editor):
-#     # Get the collection and note type from current note
-#     col = editor.mw.col
-#     model = editor.note.model()
-    
-#     # Create a new note
-#     new_note = col.new_note(model)
-    
-#     # Set the test string
-#     test_str = "anthropic is imported." if "anthropic" in sys.modules else "anthropic is not imported."
-#     new_note.fields[1] = test_str
-    
-#     # Get default deck id (usually 1 for Default deck)
-#     default_deck_id = col.decks.get_current_id()
-    
-#     try:
-#         # Add the note to collection using default deck
-#         col.add_note(new_note, default_deck_id)
-        
-#         # Open the new note in a new tab
-#         editor.mw.onAddCard()
-        
-#         # Focus the new editor and load our note
-#         new_editor = editor.mw.app.activeWindow().editor
-#         new_editor.setNote(new_note)
-#     except Exception as e:
-#         print(f"Error adding note: {str(e)}")
-
-# def add_example(editor):
-#     # Generate example text
-#     example_text = "anthropic is imported." if "anthropic" in sys.modules else "anthropic is not imported."
-    
-#     # Create and show dialog
-#     dialog = ExampleDialog(editor.parentWindow, example_text, editor)
-    
-#     if dialog.exec():
-#         # If accepted, update the original note
-#         editor.note.fields[1] = example_text
-#         editor.loadNote()
-
 def add_example(editor):
     # Generate example texts
     example_text1 = "Field 1: anthropic test"
     example_text2 = "Field 2: " + ("anthropic is imported." if "anthropic" in sys.modules else "anthropic is not imported.")
     
     # Create and show dialog
-    dialog = ExampleDialog(parent = editor.parentWindow, text1=example_text1, text2=example_text2, editor = editor)
+    dialog = ExampleDialog(parent=editor.parentWindow, 
+                         text1=example_text1,
+                         text2=example_text2,
+                         editor=editor)
     
     if dialog.exec():
-        # If accepted, update both fields
-        editor.note.fields[0] = example_text1
-        editor.note.fields[1] = example_text2
+        editor.note.fields[0] = dialog.text1
+        editor.note.fields[1] = dialog.text2
         editor.loadNote()
 
 def add_explanation(editor):
