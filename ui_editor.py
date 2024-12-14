@@ -5,7 +5,7 @@ from anki.hooks import addHook
 from . import utils
 from . import api_call
 
-from .tab_interface import ExampleDialog
+from .tab_interface import ExampleDialog, CustomInstructionDialog
 
 import sys
 
