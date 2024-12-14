@@ -7,7 +7,24 @@ from . import api_call
 
 from .tab_interface import ExampleDialog, CustomInstructionDialog
 
-import sys
+import re
+
+def format_for_anki(text: str) -> str:
+    """Format text for Anki with proper HTML"""
+    # Convert code blocks
+    text = re.sub(
+        r'```(\w+)?\n(.*?)\n```',
+        lambda m: f'<pre><code>{m.group(2)}</code></pre>',
+        text,
+        flags=re.DOTALL
+    )
+    
+    # Preserve line breaks and indentation
+    text = text.replace('\n', '<br>')
+    text = text.replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;')
+    
+    return text
+
 
 
 def add_example(editor):
@@ -25,8 +42,8 @@ def add_example(editor):
                             text2=example_text2,
                             editor=editor)
     if dialog.exec():
-        editor.note.fields[0] = dialog.text1
-        editor.note.fields[1] = dialog.text2
+        editor.note.fields[0] = format_for_anki(dialog.text1)
+        editor.note.fields[1] = format_for_anki(dialog.text2)
         editor.loadNote()
 
 def add_explanation(editor):
@@ -41,8 +58,8 @@ def add_explanation(editor):
                             text2=example_text2,
                             editor=editor)
     if dialog.exec():
-        editor.note.fields[0] = dialog.text1
-        editor.note.fields[1] = dialog.text2
+        editor.note.fields[0] = format_for_anki(dialog.text1)
+        editor.note.fields[1] = format_for_anki(dialog.text2)
         editor.loadNote()
 
 
@@ -64,8 +81,8 @@ def custom_instruction(editor):
                              text2=example_text2,
                              editor=editor)
         if dialog.exec():
-            editor.note.fields[0] = dialog.text1
-            editor.note.fields[1] = dialog.text2
+            editor.note.fields[0] = format_for_anki(dialog.text1)
+            editor.note.fields[1] = format_for_anki(dialog.text2)
             editor.loadNote()
     
 
