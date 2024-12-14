@@ -31,17 +31,23 @@ def create_related_card(editor):
             editor.note.fields[1]
         )
         
-        # Create new note
-        new_note = editor.mw.col.new_note(editor.note.model())
-        new_note.fields[0] = new_text1
-        new_note.fields[1] = new_text2
+        # Show preview dialog
+        dialog = ExampleDialog(parent=editor.parentWindow, 
+                             text1=new_text1,
+                             text2=new_text2,
+                             editor=editor)
         
-        # Add to collection in same deck
-        editor.mw.col.add_note(new_note, editor.note.cards()[0].did)
-        
-        # Show success message
-        tooltip("Created new related card!")
-
+        if dialog.exec():
+            # Create new note only if accepted
+            new_note = editor.mw.col.new_note(editor.note.model())
+            new_note.fields[0] = dialog.text1
+            new_note.fields[1] = dialog.text2
+            
+            # Add to collection in same deck
+            editor.mw.col.add_note(new_note, editor.note.cards()[0].did)
+            
+            # Show success message
+            tooltip("Created new related card!")
 
 def add_example(editor):
     # Get initial suggestions from Claude
@@ -132,7 +138,7 @@ def hook_image_buttons(buttons, editor):
     ]:
         icon_path = utils.path_to("images", "{}.png".format(icon))
         buttons.append(editor.addButton(icon_path,cmd, func, tip = tip))
-        
+
     return buttons
 
 def init_editor():
