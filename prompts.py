@@ -26,3 +26,6 @@ SPECIFIC_PROMPTS = {
     Field 2 should contain practice exercises.
     """
 }
+
+def get_full_prompt(prompt_type: str) -> str:
+    return f"{BASE_PROMPT}\n{SPECIFIC_PROMPTS[prompt_type]}"

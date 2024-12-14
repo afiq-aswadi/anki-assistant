@@ -8,12 +8,15 @@ if libs_dir not in sys.path:
 
 import anthropic
 
-def get_suggestions_from_claude(prompt: str, current_text1: str, current_text2: str) -> tuple[str, str]:
+from .prompts import get_full_prompt
+
+def get_suggestions_from_claude(prompt_type: str, prompt:str,  current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
         client = anthropic.Anthropic(api_key="REDACTED_API_KEY")
         
         system_prompt = f"""
-        You are helping improve Anki flashcards.
+       {get_full_prompt(prompt_type)}
+       
         Current content:
         Field 1: {current_text1}
         Field 2: {current_text2}

@@ -15,7 +15,8 @@ from prompts import BASE_PROMPT, SPECIFIC_PROMPTS
 def add_example(editor):
     # Get initial suggestions from Claude
     example_text1, example_text2 = api_call.get_suggestions_from_claude(
-        SPECIFIC_PROMPTS['example']
+        'example',
+        "",
         editor.note.fields[0], 
         editor.note.fields[1]
     )
@@ -32,7 +33,8 @@ def add_example(editor):
 
 def add_explanation(editor):
     example_text1, example_text2 = api_call.get_suggestions_from_claude(
-    SPECIFIC_PROMPTS['explanation'],
+    'explanation',
+    "",
     editor.note.fields[0], 
     editor.note.fields[1]
 )
@@ -52,6 +54,7 @@ def custom_instruction(editor):
     if instruction_dialog.exec():
         # Get suggestions using custom prompt
         example_text1, example_text2 = api_call.get_suggestions_from_claude(
+            'instruction',
             instruction_dialog.prompt,
             editor.note.fields[0], 
             editor.note.fields[1]
