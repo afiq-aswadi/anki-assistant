@@ -11,16 +11,18 @@ import sys
 
 
 def add_example(editor):
-    # Generate example texts
-    example_text1 = "Field 1: anthropic test"
-    example_text2 = "Field 2: " + ("anthropic is imported." if "anthropic" in sys.modules else "anthropic is not imported.")
+    # Get initial suggestions from Claude
+    example_text1, example_text2 = api_call.get_suggestions_from_claude(
+        "Initial suggestions", 
+        editor.note.fields[0], 
+        editor.note.fields[1]
+    )
     
     # Create and show dialog
     dialog = ExampleDialog(parent=editor.parentWindow, 
                          text1=example_text1,
                          text2=example_text2,
                          editor=editor)
-    
     if dialog.exec():
         editor.note.fields[0] = dialog.text1
         editor.note.fields[1] = dialog.text2

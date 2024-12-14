@@ -1,6 +1,9 @@
 from aqt.qt import *
 from typing import Optional
 
+from . import api_call
+
+
 class TextInputDialog(QDialog):
     def __init__(self, parent: Optional[QWidget]):
         super().__init__(parent)
@@ -72,15 +75,19 @@ class ExampleDialog(QDialog):
         text_dialog = TextInputDialog(self)
         if text_dialog.exec():
             user_input = text_dialog.get_text()
-            # Generate new suggestions based on user input
-            self.text1 = f"New Field 1: Based on '{user_input}'"
-            self.text2 = f"New Field 2: Modified with '{user_input}'"
+            
+            # Get new suggestions from Claude
+            new_text1, new_text2 = api_call.get_suggestions_from_claude(
+                user_input, 
+                self.text1, 
+                self.text2
+            )
             
             # Update display with new suggestions
+            self.text1 = new_text1
+            self.text2 = new_text2
             self.text_display1.setPlainText(self.text1)
             self.text_display2.setPlainText(self.text2)
-            
-            # Dialog stays open for another accept/reject cycle
     
 
 
