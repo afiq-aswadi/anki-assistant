@@ -14,11 +14,15 @@ Follow these guidelines:
 
     Formatting:
         Write all responses in Markdown format:
-            Use code blocks for Python:
-
-        # Example Python code
+        Use code blocks for Python:
+        ```python
+            # Example Python code
+        ```
 
         Write equations in LaTeX, surrounded by $$.
+        $$
+        equation
+        $$
 
 Question Construction:
 

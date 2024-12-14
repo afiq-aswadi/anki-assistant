@@ -73,12 +73,14 @@ class ExampleDialog(QDialog):
         layout.addLayout(button_box)
         
         self.setLayout(layout)
+ 
     def on_further_changes(self):
+    #TODO: this should include the prompt type
         text_dialog = TextInputDialog(self)
         if text_dialog.exec():
             user_input = text_dialog.get_text()
             
-            # Get new suggestions from Claude
+            # Get new suggestions from Claude 
             new_text1, new_text2 = api_call.get_suggestions_from_claude(
                 {BASE_PROMPT},
                 user_input, 
