@@ -65,6 +65,14 @@ SPECIFIC_PROMPTS = {
     You will be given custom instructions for this card. Follow them carefully.
     Field 1 should contain the question and {{c1:: answer}}
     Field 2 should contain the relevant explanation.
+    """,
+    
+    'related': """
+    Create a new flashcard related to the current one.
+    The new card should:
+    - Build upon the current concept
+    - Cover a related but different aspect
+    - Be at a similar difficulty level
     """
 }
 

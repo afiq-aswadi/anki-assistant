@@ -18,7 +18,7 @@ def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_te
         message = client.messages.create(
             model="claude-3-5-sonnet-latest",
             max_tokens=1000,
-            temperature=0.7,
+            temperature=0.4,
             system=get_system_prompt(),
             messages=[{"role": "user",
                         "content": f"""

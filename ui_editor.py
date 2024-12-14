@@ -1,5 +1,6 @@
 ## add button to call api
 from aqt import mw
+from aqt.utils import tooltip
 from anki.hooks import addHook
 
 from . import utils
@@ -11,13 +12,35 @@ import re
 
 def format_for_anki(text: str) -> str:
     """Format text for Anki with proper HTML"""
-    
     # Preserve line breaks and indentation
     text = text.replace('\n', '<br>')
     text = text.replace('    ', '&nbsp;&nbsp;&nbsp;&nbsp;')
     
     return text
 
+
+def create_related_card(editor):
+    # Show prompt dialog
+    instruction_dialog = CustomInstructionDialog(editor.parentWindow)
+    if instruction_dialog.exec():
+        # Get suggestions for new card
+        new_text1, new_text2 = api_call.get_suggestions_from_claude(
+            'related',
+            instruction_dialog.prompt,
+            editor.note.fields[0],
+            editor.note.fields[1]
+        )
+        
+        # Create new note
+        new_note = editor.mw.col.new_note(editor.note.model())
+        new_note.fields[0] = new_text1
+        new_note.fields[1] = new_text2
+        
+        # Add to collection in same deck
+        editor.mw.col.add_note(new_note, editor.note.cards()[0].did)
+        
+        # Show success message
+        tooltip("Created new related card!")
 
 
 def add_example(editor):
@@ -100,10 +123,16 @@ def hook_image_buttons(buttons, editor):
             "Adds custom instructions to the card", ## can make this insert into different fields.'
             "instruction",
         ),
+        (
+            "create_related_card",
+            create_related_card,
+            "Creates a related card based on the current card", ## can make this insert into different fields.
+            "related",
+        ),
     ]:
         icon_path = utils.path_to("images", "{}.png".format(icon))
         buttons.append(editor.addButton(icon_path,cmd, func, tip = tip))
-    
+        
     return buttons
 
 def init_editor():
