@@ -12,7 +12,6 @@ class ConfigDialog(QDialog):
         self.setMinimumWidth(400)
         
         layout = QVBoxLayout()
-        layout.setSpacing(20)
         
         # API Key section
         api_group = QGroupBox("API Settings")
@@ -21,7 +20,7 @@ class ConfigDialog(QDialog):
         # API Key input
         key_layout = QHBoxLayout()
         self.api_key = QLineEdit()
-        self.api_key.setEchoMode(QLineEdit.Password)
+        self.api_key.setEchoMode(QLineEdit.EchoMode.Password)  # Fixed constant name
         self.api_key.setText(self.config.get('api_key', ''))
         self.api_key.setPlaceholderText("Enter your Anthropic API key")
         
@@ -55,13 +54,12 @@ class ConfigDialog(QDialog):
         self.setLayout(layout)
     
     def toggle_key_visibility(self):
-        if self.api_key.echoMode() == QLineEdit.Password:
-            self.api_key.setEchoMode(QLineEdit.Normal)
+        if self.api_key.echoMode() == QLineEdit.EchoMode.Password:
+            self.api_key.setEchoMode(QLineEdit.EchoMode.Normal)
         else:
-            self.api_key.setEchoMode(QLineEdit.Password)
+            self.api_key.setEchoMode(QLineEdit.EchoMode.Password)
             
     def save_config(self):
         self.config['api_key'] = self.api_key.text()
         utils.save_config(self.config)
         self.accept()
-
