@@ -1399,5 +1399,5 @@ def main() -> None:
         logger.info("Codename: %s", distribution_codename)
 
 
-***REMOVED***
-***REMOVED***
+if __name__ == "__main__":
+    main()

@@ -16,7 +16,7 @@ try:
 except ImportError:  # pragma: no cover
 
     def main() -> None:  # type: ignore
-    ***REMOVED***
+        import sys
 
         print(
             "The httpx command line client could not run because the required "

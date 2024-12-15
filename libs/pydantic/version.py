@@ -21,7 +21,7 @@ def version_info() -> str:
     import importlib.metadata as importlib_metadata
     import os
     import platform
-***REMOVED***
+    import sys
     from pathlib import Path
 
     import pydantic_core._pydantic_core as pdc

@@ -254,5 +254,5 @@ def process_worker() -> None:
             raise exception
 
 
-***REMOVED***
+if __name__ == "__main__":
     process_worker()

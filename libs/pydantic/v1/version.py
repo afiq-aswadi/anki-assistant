@@ -15,7 +15,7 @@ else:  # pragma: no cover
 
 def version_info() -> str:
     import platform
-***REMOVED***
+    import sys
     from importlib import import_module
     from pathlib import Path
 

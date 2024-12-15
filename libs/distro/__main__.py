@@ -1,4 +1,4 @@
 from .distro import main
 
-***REMOVED***
-***REMOVED***
+if __name__ == "__main__":
+    main()

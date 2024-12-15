@@ -641,7 +641,7 @@ class ConfigDict(TypedDict, total=False):
     You can customize this behavior using the `protected_namespaces` setting:
 
     ```python {test="skip"}
-***REMOVED***
+    import re
     import warnings
 
     from pydantic import BaseModel, ConfigDict
