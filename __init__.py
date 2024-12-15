@@ -1,4 +1,6 @@
 from .ui_editor import init_editor
+from .ui_menu import init_menu
+
 from aqt.utils import tooltip
 from . import utils
 
@@ -9,8 +11,10 @@ if not api_key:
 else:
     tooltip("API key configured!")
     
-
+init_menu()
 init_editor()
+
+
 
 
 

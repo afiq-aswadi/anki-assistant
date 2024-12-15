@@ -7,8 +7,6 @@ from . import api_call
 
 from .tab_interface import ExampleDialog, CustomInstructionDialog
 
-import re
-
 def format_for_anki(text: str) -> str:
     """Format text for Anki with proper HTML"""
     # Preserve line breaks and indentation
