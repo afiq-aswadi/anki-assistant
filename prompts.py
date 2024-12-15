@@ -17,6 +17,7 @@ Follow these guidelines:
         Prefer straightforward "What is..." style over vague or abstract phrasing.
         Prefer equations/formulas over long explanations.
         NEVER use jargon or complex terms without explaining them or adding them into context.
+        NEVER use symbols for variables without explaining what they represent.
         NEVER invent information. Please state assumptions if needed.
 
     Formatting:
