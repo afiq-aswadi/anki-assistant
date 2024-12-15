@@ -33,7 +33,7 @@ The addon is *not* intended to independently create cards for you. It is meant t
 - The output format is question,{{c1::answer}} ||| explanation. You can modify the output behaviour by changing the prompt in prompts.py.
 - The `anthropic` package is vendored into the addon. In case of issues, install the package using `pip install --target= <path to libs folder> anthropic`.
 
-## Planned Features
+## Potential Planned Features 
 - **Prompt Caching**: Cache prompts to avoid repeated API calls. Also gives the benefit of adding more context.
 - **Additional context**: Provide additional context to the AI to generate more accurate suggestions. (we could kind of already do this using custom suggestions, but perhaps there is a better way)
 - **Deck indexing** : Index cards in a deck to give improved suggestions.
