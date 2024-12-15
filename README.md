@@ -12,6 +12,7 @@ The addon is *not* intended to independently create cards for you. It is meant t
 - **Custom suggestions**: Provide a prompt to the AI to generate custom suggestions based on your needs.
 
 
+
 ## Installation
 
 1. Clone the repository into your addons folder:
@@ -34,6 +35,16 @@ The addon is *not* intended to independently create cards for you. It is meant t
 - The addon outputs suggestions in cloze format. You can modify this by changing the prompt in prompts.py.
 - The output format is question,{{c1::answer}} ||| explanation. You can modify this by changing the prompt in prompts.py.
 
+
+## Planned Features
+- **Prompt Caching**: Cache prompts to avoid repeated API calls. Also gives the benefit of adding more context.
+- **Additional context**: Provide additional context to the AI to generate more accurate suggestions. (we could kind of already do this using custom suggestions, but perhaps there is a better way)
+- **Deck indexing** : Index cards in a deck to give improved suggestions.
+
+## (Un)Planned Features
+These are features that may be useful, but are not currently planned due to not fitting my use case.
+- **Customizable output format**: Allow users to customize the output format of the suggestions.
+- **Model choices**: Use models from different providers to generate suggestions.
 
 ## Acknowledgements
 
