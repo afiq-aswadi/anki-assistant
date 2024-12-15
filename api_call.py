@@ -1,6 +1,6 @@
 import sys
 import os
-
+from .utils import get_config
 
 addon_dir = os.path.dirname(__file__)
 libs_dir = os.path.join(addon_dir, "libs")
@@ -14,14 +14,14 @@ from .prompts import get_system_prompt, get_user_prompt
 
 def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
-        config = utils.get_config()
+        config = get_config()
         api_key = config.get('api_key')
         if not api_key:
             return "API Error: No API key configured", "Please set your API key in Tools > Add-ons > Config"
         client = anthropic.Anthropic(api_key=api_key)
         
         message = client.messages.create(
-            model= {config.get('model_id')},
+            model= config.get('model_id'),
             max_tokens=1000,
             temperature= config.get('temperature'),
             system=get_system_prompt(),
