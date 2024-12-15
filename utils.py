@@ -1,3 +1,4 @@
+import json
 from aqt import mw
 import os 
 from os.path import dirname, abspath, realpath
@@ -10,6 +11,17 @@ CURRENT_DIR = dirname(abspath(realpath(__file__)))
 
 def get_config():
     return mw.addonManager.getConfig(__name__)
+
+def save_config(config: dict) -> bool:
+    try:
+        config_path = os.path.join(CURRENT_DIR, 'config.json')
+        with open(config_path, 'w') as f:
+            json.dump(config, f, indent=4)
+        return True
+    except Exception as e:
+        print(f"Error saving config: {str(e)}")
+        return False
+
 
 def path_to(*args):
     return os.path.join(CURRENT_DIR, *args)
@@ -27,4 +39,6 @@ def report(text):
         showWarning(text, title="Anki Image Search v2 Addon")
     else:
         print(text)
+
+
 

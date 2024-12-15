@@ -61,5 +61,7 @@ class ConfigDialog(QDialog):
             
     def save_config(self):
         self.config['api_key'] = self.api_key.text()
-        utils.save_config(self.config)
-        self.accept()
+        if utils.save_config(self.config):
+            self.accept()
+        else:
+            QMessageBox.critical(self, "Error", "Failed to save configuration")
