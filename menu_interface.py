@@ -38,8 +38,8 @@ class ConfigDialog(QDialog):
         self.model_select = QComboBox()
         models = ["claude-3-5-sonnet-latest", "claude-3-5-haiku-latest", "claude-3-opus-20240229"]
         self.model_select.addItems(models)
-        current_model = self.config.get('model_id', 'claude-3-sonnet-20240229')
-        self.model_select.setCurrentText(current_model)
+        # current_model = self.config.get('model_id', 'claude-3-sonnet-20240229')
+        # self.model_select.setCurrentText(current_model)
         
         model_layout.addWidget(QLabel("Model:"))
         model_layout.addWidget(self.model_select)
