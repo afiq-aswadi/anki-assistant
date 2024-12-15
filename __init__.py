@@ -1,20 +1,11 @@
 from .ui_editor import init_editor
 from .ui_menu import init_menu
-
-from aqt.utils import tooltip
+from aqt.utils import showInfo
 from . import utils
 
 config = utils.get_config()
-api_key = config.get('api_key')
-if not api_key:
-    tooltip("API Error: No API key configured", "Please set your API key in Tools > Add-ons > Config")
-else:
-    tooltip("API key configured!")
-    
-init_menu()
+if not config.get('api_key'):
+    showInfo("Please set your API key in Tools > Anki-Copilot > Settings")
+
 init_editor()
-
-
-
-
-
+init_menu()

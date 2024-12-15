@@ -12,6 +12,7 @@ class ConfigDialog(QDialog):
         self.setMinimumWidth(400)
         
         layout = QVBoxLayout()
+        layout.setSpacing(20)
         
         # API Key section
         api_group = QGroupBox("API Settings")
@@ -20,7 +21,7 @@ class ConfigDialog(QDialog):
         # API Key input
         key_layout = QHBoxLayout()
         self.api_key = QLineEdit()
-        self.api_key.setEchoMode(QLineEdit.EchoMode.Password)  # Fixed constant name
+        self.api_key.setEchoMode(QLineEdit.EchoMode.Password)
         self.api_key.setText(self.config.get('api_key', ''))
         self.api_key.setPlaceholderText("Enter your Anthropic API key")
         
@@ -32,7 +33,35 @@ class ConfigDialog(QDialog):
         key_layout.addWidget(self.api_key)
         key_layout.addWidget(show_key)
         
+        # Model selection
+        model_layout = QHBoxLayout()
+        self.model_select = QComboBox()
+        models = ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240229"]
+        self.model_select.addItems(models)
+        current_model = self.config.get('model_id', 'claude-3-sonnet-20240229')
+        self.model_select.setCurrentText(current_model)
+        
+        model_layout.addWidget(QLabel("Model:"))
+        model_layout.addWidget(self.model_select)
+        
+        # Temperature slider
+        temp_layout = QHBoxLayout()
+        self.temp_slider = QSlider()
+        self.temp_slider.setOrientation(Qt.Orientation.Horizontal)
+        self.temp_slider.setMinimum(0)
+        self.temp_slider.setMaximum(100)
+        self.temp_slider.setValue(int(self.config.get('temperature', 0.7) * 100))
+        
+        self.temp_label = QLabel(f"Temperature: {self.temp_slider.value()/100:.2f}")
+        self.temp_slider.valueChanged.connect(self.update_temp_label)
+        
+        temp_layout.addWidget(self.temp_label)
+        temp_layout.addWidget(self.temp_slider)
+        
+        # Add all to API layout
         api_layout.addLayout(key_layout)
+        api_layout.addLayout(model_layout)
+        api_layout.addLayout(temp_layout)
         api_group.setLayout(api_layout)
         
         # Buttons
@@ -53,6 +82,9 @@ class ConfigDialog(QDialog):
         
         self.setLayout(layout)
     
+    def update_temp_label(self):
+        self.temp_label.setText(f"Temperature: {self.temp_slider.value()/100:.2f}")
+    
     def toggle_key_visibility(self):
         if self.api_key.echoMode() == QLineEdit.EchoMode.Password:
             self.api_key.setEchoMode(QLineEdit.EchoMode.Normal)
@@ -61,7 +93,7 @@ class ConfigDialog(QDialog):
             
     def save_config(self):
         self.config['api_key'] = self.api_key.text()
+        self.config['model_id'] = self.model_select.currentText()
+        self.config['temperature'] = self.temp_slider.value() / 100
         if utils.save_config(self.config):
             self.accept()
-        else:
-            QMessageBox.critical(self, "Error", "Failed to save configuration")

@@ -10,7 +10,14 @@ from aqt import mw
 CURRENT_DIR = dirname(abspath(realpath(__file__)))
 
 def get_config():
-    return mw.addonManager.getConfig(__name__)
+    try:
+        config_path = os.path.join(CURRENT_DIR, 'config.json')
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                return json.load(f)
+        return {"api_key": "", "model_id": "claude-3.5-latest", "temperature": 0.4}
+    except:
+        return {"api_key": "", "model_id": "claude-3.5-latest", "temperature": 0.4}
 
 def save_config(config: dict) -> bool:
     try:
