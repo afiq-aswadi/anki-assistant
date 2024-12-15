@@ -36,7 +36,7 @@ class ConfigDialog(QDialog):
         # Model selection
         model_layout = QHBoxLayout()
         self.model_select = QComboBox()
-        models = ["claude-3-5-sonnet-latest (Most Powerful)", "claude-3-5-haiku-latest (Lightweight)", "claude-3-opus-20240229 (Older, Cheaper)"]
+        models = ["claude-3-5-sonnet-latest", "claude-3-5-haiku-latest", "claude-3-opus-20240229"]
         self.model_select.addItems(models)
         current_model = self.config.get('model_id', 'claude-3-sonnet-20240229')
         self.model_select.setCurrentText(current_model)

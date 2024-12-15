@@ -1,5 +1,5 @@
 {
-    "api_key": "",
-    "model_id": "",
-    "temperature": 
+    "api_key": "123",
+    "model_id": "claude-3-5-sonnet-latest (Most Powerful)",
+    "temperature": 0.4
 }
