@@ -1,6 +1,5 @@
 import sys
 import os
-from dotenv import load_dotenv
 
 
 addon_dir = os.path.dirname(__file__)
@@ -9,6 +8,7 @@ if libs_dir not in sys.path:
     sys.path.insert(0, libs_dir)
 
 import anthropic
+from dotenv import load_dotenv
 
 from .prompts import get_system_prompt, get_user_prompt
 
@@ -16,7 +16,6 @@ def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_te
     try:
         load_dotenv()
         client = anthropic.Anthropic(api_key=os.getenv("API_KEY")) # define API_KEY as an env variable.
-
         
         message = client.messages.create(
             model="claude-3-5-sonnet-latest",
