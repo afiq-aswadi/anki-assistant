@@ -15,8 +15,8 @@ class ConfigDialog(QDialog):
         layout.setSpacing(20)
         
         # API Key section
-        api_group = QGroupBox("API Settings")
-        api_layout = QVBoxLayout()
+        api_group = QGroupBox("API Settings") 
+        api_layout = QVBoxLayout() 
         
         # API Key input
         key_layout = QHBoxLayout()
