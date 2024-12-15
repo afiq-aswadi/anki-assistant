@@ -30,11 +30,13 @@ class TextInputDialog(QDialog):
         return self.text_input.toPlainText()
 
 class ExampleDialog(QDialog):
-    def __init__(self, parent: Optional[QWidget], text1: str, text2: str, editor):
+    def __init__(self, parent: Optional[QWidget], text1: str, text2: str, editor, prompt_type: str, initial_prompt: str = ""):
         super().__init__(parent)
         self.editor = editor
         self.text1 = text1
         self.text2 = text2
+        self.prompt_type = prompt_type
+        self.initial_prompt = initial_prompt
         self.setup_ui()
         
     def setup_ui(self):
@@ -75,15 +77,20 @@ class ExampleDialog(QDialog):
         self.setLayout(layout)
  
     def on_further_changes(self):
-    #TODO: this should include the prompt type
         text_dialog = TextInputDialog(self)
         if text_dialog.exec():
             user_input = text_dialog.get_text()
             
             # Get new suggestions from Claude 
+            if self.prompt_type == 'instruction' or self.prompt_type == 'related':
+                combined_input = f"{self.initial_prompt}\nAdditional instruction: {user_input}"
+            else:
+                combined_input = user_input
+
+
             new_text1, new_text2 = api_call.get_suggestions_from_claude(
-                {BASE_PROMPT},
-                user_input, 
+                self.prompt_type,
+                combined_input, 
                 self.text1, 
                 self.text2
             )
@@ -97,9 +104,9 @@ class ExampleDialog(QDialog):
 class CustomInstructionDialog(QDialog):
     def __init__(self, parent):
         super().__init__(parent)
+        self.propmt = ""
         self.setup_ui()
-        self.prompt = ""
-        
+
     def setup_ui(self):
         self.setWindowTitle("Custom Instruction")
         layout = QVBoxLayout()

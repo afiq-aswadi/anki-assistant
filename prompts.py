@@ -85,7 +85,7 @@ SPECIFIC_PROMPTS = {
     """,
     
     'related': """
-    Create a new flashcard related to the current one.
+    Create a new flashcard related to the current one, according to the instructions provided.
     The new card should:
     - Build upon the current concept
     - Cover a related but different aspect of the question
@@ -94,6 +94,7 @@ SPECIFIC_PROMPTS = {
     Field 1 should contain the question and {{c1:: answer}}
     Field 2 should contain the relevant explanation.
     Remember to output only the new flashcard in the required format without any additional text or explanations about the changes made.
+
     """
 }
 
@@ -103,5 +104,5 @@ def get_system_prompt() -> str:
 def get_user_prompt(prompt_type: str, custom_prompt: str = "") -> str:
     specific = SPECIFIC_PROMPTS.get(prompt_type, "")
     if custom_prompt:
-        return f"{specific}\nAdditional instructions: {custom_prompt}"
+        return f"{specific}\nYour additional instructions are: {custom_prompt}"
     return specific

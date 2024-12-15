@@ -29,7 +29,8 @@ def add_example(editor):
     dialog = ExampleDialog(parent=editor.parentWindow, 
                             text1=example_text1,
                             text2=example_text2,
-                            editor=editor)
+                            editor=editor,
+                            prompt_type= 'example')
     if dialog.exec():
         editor.note.fields[0] = format_for_anki(dialog.text1)
         editor.note.fields[1] = format_for_anki(dialog.text2)
@@ -45,7 +46,8 @@ def add_explanation(editor):
     dialog = ExampleDialog(parent=editor.parentWindow, 
                             text1=example_text1,
                             text2=example_text2,
-                            editor=editor)
+                            editor=editor,
+                            prompt_type= 'explanation',)
     if dialog.exec():
         editor.note.fields[0] = format_for_anki(dialog.text1)
         editor.note.fields[1] = format_for_anki(dialog.text2)
@@ -68,7 +70,9 @@ def custom_instruction(editor):
         dialog = ExampleDialog(parent=editor.parentWindow, 
                              text1=example_text1,
                              text2=example_text2,
-                             editor=editor)
+                             editor=editor,
+                             prompt_type= 'instruction',
+                             initial_prompt= instruction_dialog.prompt)
         if dialog.exec():
             editor.note.fields[0] = format_for_anki(dialog.text1)
             editor.note.fields[1] = format_for_anki(dialog.text2)
@@ -93,7 +97,9 @@ def create_related_card(editor):
         dialog = ExampleDialog(parent=editor.parentWindow, 
                              text1=new_text1,
                              text2=new_text2,
-                             editor=editor)
+                             editor=editor,
+                             prompt_type= 'related',
+                             initial_prompt= instruction_dialog.prompt)
         
         if dialog.exec():
             # Create new note only if accepted
