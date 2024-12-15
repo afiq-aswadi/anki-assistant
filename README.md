@@ -1,7 +1,7 @@
-# Anki Copilot - Tool to Enhance Your Flashcards!
+# Anki Assistant - Tool to Enhance Your Flashcards!
 #TODO: add illustrations.
 
-Anki Copilot is an addon for Anki that enhances your flashcards by making AI-powered improvements to your cards. The addon uses the Claude API to provide suggestions for your cards. The suggestions are based on the content of your cards and the settings you choose.
+Anki Assistant is an addon for Anki that enhances your flashcards by making AI-powered improvements to your cards. The addon uses the Claude API to provide suggestions for your cards. The suggestions are based on the content of your cards and the settings you choose.
 
 The addon is *not* intended to independently create cards for you. It is meant to be used as a tool to help you improve your cards and thus make your study sessions more efficient. 
 
@@ -19,7 +19,7 @@ The addon is *not* intended to independently create cards for you. It is meant t
    - Windows: `%APPDATA%\Anki2\addons21`
    - Mac: `~/Library/Application Support/Anki2/addons21`
    - Linux: `~/.local/share/Anki2/addons21`
-2. Open Anki and navigate to `Tools` > `Anki-copilot`.
+2. Open Anki and navigate to `Tools` > `Anki-assistant`.
 3. Add your Claude API Key and choose your desired settings.
 
 ## Usage
