@@ -8,7 +8,7 @@ def show_config_dialog():
     dialog.exec()
 
 def init_menu():
-    menu = QMenu("Anki-Copilot", mw)
+    menu = QMenu("Anki-Assistant", mw)
     config_action = QAction("Configuration", mw)
     config_action.triggered.connect(show_config_dialog)
     menu.addAction(config_action)

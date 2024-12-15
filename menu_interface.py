@@ -8,7 +8,7 @@ class ConfigDialog(QDialog):
         self.setup_ui()
         
     def setup_ui(self):
-        self.setWindowTitle("Anki-Copilot Configuration")
+        self.setWindowTitle("Anki-Assistant Configuration")
         self.setMinimumWidth(400)
         
         layout = QVBoxLayout()
