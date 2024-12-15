@@ -38,7 +38,7 @@ The addon is *not* intended to independently create cards for you. It is meant t
 
 ## Acknowledgements
 
-Special thanks to the Anki community for their continuous support and feedback. Some code borrowed from https://ankiweb.net/shared/info/432495333. Prompt was modified from Anki-GPT: https://github.com/JoeRonaldson/Anki-GPT. Button icons from <a target="_blank" href="https://icons8.com/icon/117567/example">Example</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>.
+Special thanks to the Anki community for their continuous support and feedback. Some code borrowed from https://ankiweb.net/shared/info/432495333. Prompt was modified from Anki-GPT: https://github.com/JoeRonaldson/Anki-GPT. Button icons from <a target="_blank" href="https://icons8.com">Icons8</a>.
 
 
 ## Disclaimer
