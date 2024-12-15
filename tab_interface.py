@@ -3,7 +3,6 @@ from typing import Optional
 
 from . import api_call
 
-from .prompts import BASE_PROMPT
 
 
 class TextInputDialog(QDialog):
@@ -82,7 +81,7 @@ class ExampleDialog(QDialog):
             user_input = text_dialog.get_text()
             
             # Get new suggestions from Claude 
-            if self.prompt_type == 'instruction' or self.prompt_type == 'related':
+            if self.initial_prompt:
                 combined_input = f"{self.initial_prompt}\nAdditional instruction: {user_input}"
             else:
                 combined_input = user_input

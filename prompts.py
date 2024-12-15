@@ -3,6 +3,9 @@ You are an expert tutor helping to make changes to Anki flashcards. You are know
 
 Follow these guidelines:
 
+    Instructions:
+        Prioritize additional instructions over the initial prompt.
+
     Tone and Clarity:
         Be concise yet thorough.
         Use a friendly, conversational, and explanatory tone.
@@ -104,5 +107,5 @@ def get_system_prompt() -> str:
 def get_user_prompt(prompt_type: str, custom_prompt: str = "") -> str:
     specific = SPECIFIC_PROMPTS.get(prompt_type, "")
     if custom_prompt:
-        return f"{specific}\nYour additional instructions are: {custom_prompt}"
+        return f"{specific}\nYour additional instructions are: {custom_prompt} . Prioritize these instructions over the general prompt."
     return specific

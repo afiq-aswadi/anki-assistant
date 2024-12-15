@@ -29,11 +29,12 @@ def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_te
                         "content": f"""
                 {get_user_prompt(prompt_type, custom_prompt)}
                 
-                Current flashcard:
+                The following flashcard needs improvement: 
+
                 Question/Answer: {current_text1}
                 Explanation: {current_text2}
                 
-                Please improve this flashcard following the format requirements.
+                Please improve this flashcard following the instructions given.
                 """
             }]
         )
