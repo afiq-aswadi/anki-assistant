@@ -39,10 +39,12 @@ The addon is *not* intended to independently create cards for you. It is meant t
 - **Deck indexing** : Index cards in a deck to give improved suggestions.
 - **Improved prompt** : Improve the prompt to give better suggestions.
 
+
 ## (Un)Planned Features
 These are features that may be useful, but are not currently planned due to not fitting my use case.
 - **Customizable output format**: Allow users to customize the output format of the suggestions.
 - **Model choices**: Use models from different providers to generate suggestions.
+- **Image recognition**: Use image recognition to provide suggestions for cards with images.
 
 ## Acknowledgements
 
