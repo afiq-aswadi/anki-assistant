@@ -16,36 +16,6 @@ def format_for_anki(text: str) -> str:
     return text
 
 
-def create_related_card(editor):
-    # Show prompt dialog
-    instruction_dialog = CustomInstructionDialog(editor.parentWindow)
-    if instruction_dialog.exec():
-        # Get suggestions for new card
-        new_text1, new_text2 = api_call.get_suggestions_from_claude(
-            'related',
-            instruction_dialog.prompt,
-            editor.note.fields[0],
-            editor.note.fields[1]
-        )
-        
-        # Show preview dialog
-        dialog = ExampleDialog(parent=editor.parentWindow, 
-                             text1=new_text1,
-                             text2=new_text2,
-                             editor=editor)
-        
-        if dialog.exec():
-            # Create new note only if accepted
-            new_note = editor.mw.col.new_note(editor.note.model())
-            new_note.fields[0] = dialog.text1
-            new_note.fields[1] = dialog.text2
-            
-            # Add to collection in same deck
-            editor.mw.col.add_note(new_note, editor.note.cards()[0].did)
-            
-            # Show success message
-            tooltip("Created new related card!")
-
 def add_example(editor):
     # Get initial suggestions from Claude
     example_text1, example_text2 = api_call.get_suggestions_from_claude(
@@ -104,6 +74,38 @@ def custom_instruction(editor):
             editor.note.fields[1] = format_for_anki(dialog.text2)
             editor.loadNote()
     
+
+
+
+def create_related_card(editor):
+    # Show prompt dialog
+    instruction_dialog = CustomInstructionDialog(editor.parentWindow)
+    if instruction_dialog.exec():
+        # Get suggestions for new card
+        new_text1, new_text2 = api_call.get_suggestions_from_claude(
+            'related',
+            instruction_dialog.prompt,
+            editor.note.fields[0],
+            editor.note.fields[1]
+        )
+        
+        # Show preview dialog
+        dialog = ExampleDialog(parent=editor.parentWindow, 
+                             text1=new_text1,
+                             text2=new_text2,
+                             editor=editor)
+        
+        if dialog.exec():
+            # Create new note only if accepted
+            new_note = editor.mw.col.new_note(editor.note.model())
+            new_note.fields[0] = dialog.text1
+            new_note.fields[1] = dialog.text2
+            
+            # Add to collection in same deck
+            editor.mw.col.add_note(new_note, editor.note.cards()[0].did)
+            
+            # Show success message
+            tooltip("Created new related card!")
 
 
 def hook_image_buttons(buttons, editor):
