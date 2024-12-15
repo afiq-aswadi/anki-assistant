@@ -8,19 +8,22 @@ if libs_dir not in sys.path:
     sys.path.insert(0, libs_dir)
 
 import anthropic
-from dotenv import load_dotenv
+
 
 from .prompts import get_system_prompt, get_user_prompt
 
 def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
-        load_dotenv()
-        client = anthropic.Anthropic(api_key=os.getenv("API_KEY")) # define API_KEY as an env variable.
+        config = utils.get_config()
+        api_key = config.get('api_key')
+        if not api_key:
+            return "API Error: No API key configured", "Please set your API key in Tools > Add-ons > Config"
+        client = anthropic.Anthropic(api_key=api_key)
         
         message = client.messages.create(
-            model="claude-3-5-sonnet-latest",
+            model= {config.get('model_id')},
             max_tokens=1000,
-            temperature=0.4,
+            temperature= config.get('temperature'),
             system=get_system_prompt(),
             messages=[{"role": "user",
                         "content": f"""
