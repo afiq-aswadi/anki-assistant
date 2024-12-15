@@ -1,5 +1,4 @@
 ## add button to call api
-from aqt import mw
 from aqt.utils import tooltip
 from anki.hooks import addHook
 

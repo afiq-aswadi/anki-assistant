@@ -1,5 +1,7 @@
 import sys
 import os
+from dotenv import load_dotenv
+
 
 addon_dir = os.path.dirname(__file__)
 libs_dir = os.path.join(addon_dir, "libs")
@@ -12,7 +14,8 @@ from .prompts import get_system_prompt, get_user_prompt
 
 def get_suggestions_from_claude(prompt_type: str, custom_prompt:str,  current_text1: str, current_text2: str) -> tuple[str, str]:
     try:
-        client = anthropic.Anthropic(api_key="REDACTED_API_KEY")
+        load_dotenv()
+        client = anthropic.Anthropic(api_key=os.getenv("API_KEY")) # define API_KEY as an env variable.
 
         
         message = client.messages.create(
