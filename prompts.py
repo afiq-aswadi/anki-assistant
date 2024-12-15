@@ -33,6 +33,7 @@ Question Construction:
 Answer Construction:
 
     Keep answers concise (15 words max, preferably fewer).
+    Prefer equations/formulas over long explanations.
     Avoid repeating parts of the question in the answer.
     Use this format:
     Question, {{c1:: answer }} ||| explanation
@@ -44,9 +45,6 @@ Explanations:
 Examples and Specificity:
 
     Avoid using examples as answers.
-    Example-based questions should follow this format:
-        Front: "What type of animal is a fox?"
-        Back: "A mammal."
 """
 
 SPECIFIC_PROMPTS = {

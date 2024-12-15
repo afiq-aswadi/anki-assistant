@@ -51,5 +51,7 @@ Special thanks to the Anki community for their continuous support and feedback. 
 
 ## Disclaimer
 
-This addon was intended for personal use. I don't plan on maintaining it, but feel free to fork it and make your own changes! 
+This addon was intended for personal use. I don't plan on maintaining it, but feel free to fork it and make your own changes! Pull requests are appreciated. 
+
+
 
