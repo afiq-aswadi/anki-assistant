@@ -1,5 +1,4 @@
 # Anki Assistant - Tool to Enhance Your Flashcards!
-#TODO: add illustrations.
 
 Anki Assistant is an addon for Anki that enhances your flashcards by making AI-powered improvements to your cards. The addon uses the Claude API to provide suggestions for your cards. The suggestions are based on the content of your cards and the settings you choose.
 
